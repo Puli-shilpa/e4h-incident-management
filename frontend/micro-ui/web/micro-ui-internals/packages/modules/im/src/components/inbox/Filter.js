@@ -78,7 +78,7 @@ const convertedData = Digit.SessionStorage.get("IM_TENANTS").map(item => ({
 const healthcareMenu=Digit.SessionStorage.get("Employee.tenantId") !== "pg" ? Digit.SessionStorage.get("Tenants") : Digit.SessionStorage.get("Employee.tenantId") == "pg" ? isCodePresent(Digit.SessionStorage.get("User")?.info?.roles, "COMPLAINT_RESOLVER")?  healthcareTenant: Digit.SessionStorage.get("IM_TENANTS").filter((item) => item.code !=="pg"): Digit.SessionStorage.get("IM_TENANTS").filter((item) => item.code !=="pg")
 const translatedPhcMenu=healthcareMenu.map(item=>({
   ...item,
-  code: t(item?.name),
+  code: t(item?.code),
   name:t(item?.name),
   centreType:t(item?.centreType)
 }))
@@ -142,6 +142,7 @@ if(translatedPhcMenu.length>0){
   }
 
   function onSelectHealthCare(value, type) {
+    if(!value) return
     if (!ifExists(pgrfilters.phcType, value)) {
       setPgrFilters({ ...pgrfilters, phcType: [...pgrfilters.phcType, value] });
     }
@@ -197,7 +198,7 @@ if(translatedPhcMenu.length>0){
   };
 
   const GetSelectOptions = (lable, options, selected = null, select, optionKey, onRemove, key) => {
-    selected = selected || { [optionKey]: " ", code: "" };
+    selected = selected || { [optionKey]: "", code: "" };
    
     return (
       <div>

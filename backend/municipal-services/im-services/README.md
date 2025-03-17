@@ -64,6 +64,9 @@ the citizen and will be updated by notifications whenever the status of the comp
 
 **c) Count Complaints `POST /_search` :** API to return the count of total number of complaints satisfying the given criteria
 
+**c) Count Complaints `POST / video/_upload` :** API for uploading video to filestore
+
+
 ### Kafka Consumers
 
 - NA
@@ -73,3 +76,4 @@ the citizen and will be updated by notifications whenever the status of the comp
 - Following are the Producer topic.
     - **save-im-request** :- This topic is used to create new complaint in the system.
     - **update-im-request** :- This topic is used to update the existing complaint in the systen.
+

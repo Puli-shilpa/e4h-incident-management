@@ -13,9 +13,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 @Component
@@ -24,9 +25,6 @@ import java.util.TimeZone;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IMConfiguration {
-
-
-
 
     @Value("${app.timezone}")
     private String timeZone;
@@ -228,5 +226,33 @@ public class IMConfiguration {
     @Value("${is.environment.central.instance}")
     private Boolean isEnvironmentCentralInstance;
 
+    @Value("${video.max.size}")
+    private Integer maxVideoSizeInMB;
+
+    @Value("${video.list.size}")
+    private Integer videoListSize;
+
+    @Value("#{${allowed.formats.map}}")
+    private Map<String,List<String>> allowedFormatsMap;
+
+    private Set<String> allowedKeySet;
+
+    @PostConstruct
+    private void enrichKeysetForFormats() {
+        allowedKeySet = allowedFormatsMap.keySet();
+    }
+
+    //File store
+    @Value("${egov.filestore.host}")
+    private String fileStoreHost;
+
+    @Value("${egov.filestore.hls.upload.endpoint}")
+    private String fileStoreHlsUploadEndpoint;
+
+    @Value("${egov.filestore.upload.endpoint}")
+    private String fileStoreUploadEndpoint;
+
+    @Value("${ffprobe.path}")
+    private String ffprobePath;
 
 }
